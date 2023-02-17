@@ -1,0 +1,32 @@
+image: docker:19.03.12
+services:
+  - docker:19.03.12-dind
+stages:
+  - build
+  - test
+  - deploy
+
+before_script:
+  - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+
+build:
+  stage: build
+  script:
+    - docker build -t $DOCKER_USERNAME/$DOCKER_PROJECT:$CI_COMMIT_SHA .
+    - docker push $DOCKER_USERNAME/$DOCKER_PROJECT:$CI_COMMIT_SHA
+    - echo "subiendo...."
+
+test:
+  stage: test
+  script:
+    - docker pull $DOCKER_USERNAME/$DOCKER_PROJECT:$CI_COMMIT_SHA
+    - docker run $DOCKER_USERNAME/$DOCKER_PROJECT:$CI_COMMIT_SHA npm test
+
+
+deploy:
+  stage: deploy
+  tags:
+    - local_docker
+  script:
+    - docker pull $DOCKER_USERNAME/$DOCKER_PROJECT:latest
+    - docker run -d -p 3000:3000 $DOCKER_USERNAME/$DOCKER_PROJECT:latest
