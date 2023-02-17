@@ -25,7 +25,6 @@ jobs:
         run: |
           npm install
           npm run build --if-present
-
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
@@ -36,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     environment:
-      name: 'production'
+      name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
@@ -50,6 +49,6 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'rta'
-          slot-name: 'production'
-          publish-profile: ${{ secrets.AzureAppService_PublishProfile_1234 }}
+          slot-name: 'Production'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_10C0753B9A88448B8A42CDF871834518 }}
           package: .
