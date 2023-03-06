@@ -2,7 +2,7 @@ var express = require("express");
 var app = express();
 require("dotenv").config();
 app.get("/", function (req, res) {
-  res.send(process.env.token + "sadsa");
+  res.send(process.env.token + "sadsa" + " sage");
 });
 
 
