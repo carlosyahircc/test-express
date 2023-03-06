@@ -70,7 +70,7 @@ jobs:
                 name: node-app
 
             - name: 'Deploy to Azure Web App Stage'
-              id: deploy-to-webapp
+              id: deploy-to-webapp-stage
               uses: azure/webapps-deploy@v2
               with:
                 app-name: 'asdsado'
