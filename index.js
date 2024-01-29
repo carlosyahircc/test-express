@@ -8,9 +8,12 @@ app.get("/", function (req, res) {
 });
 // comentario para la IA
 app.post("/", function (req, res) {
-  res.send("prueba ewe");
+  res.send("prueba");
 });
 
+
+
+(() => console.log("a"))
 
 app.listen(process.env.PORT || 3000);
 module.exports = app;
